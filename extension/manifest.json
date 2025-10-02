@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Emotion Detector",
+  "version": "1.0",
+  "description": "Detect emotions on various social media platforms",
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": [
+    "http://localhost:5000/",
+    "*://*.youtube.com/*",
+    "*://*.facebook.com/*",
+    "*://*.twitter.com/*",
+    "*://*.linkedin.com/*",
+    "*://*.reddit.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.twitter.com/*",
+        "*://*.x.com/*",
+        "*://*.reddit.com/*",
+        "*://*.facebook.com/*",
+        "*://*.youtube.com/*",
+        "*://*.linkedin.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  }
+}
