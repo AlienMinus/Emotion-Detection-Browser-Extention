@@ -1,16 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Sentiment Analyzer</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Emotion Detector</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 </head>
+
 <body>
-  <h3>🌀 TRON Sentiment Analyzer</h3>
-  <textarea id="inputText" placeholder="Enter your thought..."></textarea>
-  <button id="analyzeBtn">Analyze</button>
-  <div id="result"></div>
-  <script src="popup.js"></script>
+
+    <main class="app">
+
+        <!-- Header -->
+
+        <header class="header">
+
+            <img
+                src="icon.png"
+                class="logo"
+                alt="Emotion Detector"
+            >
+
+            <div>
+                <h1>Emotion Detector</h1>
+
+                <p>
+                    AI-powered emotion analysis
+                </p>
+            </div>
+
+        </header>
+
+
+        <!-- Input -->
+
+        <section class="input-section">
+
+            <label for="inputText">
+                Enter text
+            </label>
+
+            <textarea
+                id="inputText"
+                placeholder="How are you feeling today?"
+                maxlength="5000"
+            ></textarea>
+
+            <div class="input-footer">
+
+                <span id="charCount">
+                    0 / 5000
+                </span>
+
+                <button
+                    id="clearBtn"
+                    type="button"
+                >
+                    Clear
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- Analyze -->
+
+        <button
+            id="analyzeBtn"
+            class="analyze-btn"
+            type="button"
+        >
+            <span id="buttonText">
+                Analyze Emotion
+            </span>
+
+            <span
+                id="loader"
+                class="loader hidden"
+            ></span>
+        </button>
+
+
+        <!-- Result -->
+
+        <section
+            id="result"
+            class="result hidden"
+        ></section>
+
+
+        <!-- Footer -->
+
+        <footer class="footer">
+            <span>Emotion Detector</span>
+            <span>v2.0</span>
+        </footer>
+
+    </main>
+
+    <script src="popup.js"></script>
+
 </body>
+
 </html>

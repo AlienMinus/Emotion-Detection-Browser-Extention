@@ -1,17 +1,26 @@
 {
   "manifest_version": 3,
   "name": "Emotion Detector",
-  "version": "1.0",
-  "description": "Detect emotions on various social media platforms",
-  "permissions": ["activeTab", "scripting"],
+  "version": "2.0.0",
+  "description": "Real-time emotion detection for social media content.",
+  "author": "AlienMinus",
+
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+
   "host_permissions": [
-    "http://localhost:5000/",
+    "https://emotion-detection-browser-extention.vercel.app/*",
+
     "*://*.youtube.com/*",
     "*://*.facebook.com/*",
     "*://*.twitter.com/*",
+    "*://*.x.com/*",
     "*://*.linkedin.com/*",
     "*://*.reddit.com/*"
   ],
+
   "content_scripts": [
     {
       "matches": [
@@ -22,12 +31,22 @@
         "*://*.youtube.com/*",
         "*://*.linkedin.com/*"
       ],
-      "js": ["content.js"],
+      "js": [
+        "content.js"
+      ],
       "run_at": "document_idle"
     }
   ],
+
   "action": {
+    "default_title": "Emotion Detector",
     "default_popup": "popup.html",
-    "default_icon": "icon.png"
+    "default_icon": {
+      "128": "icon.png"
+    }
+  },
+
+  "icons": {
+    "128": "icon.png"
   }
 }

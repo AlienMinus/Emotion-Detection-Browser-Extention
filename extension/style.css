@@ -1,59 +1,654 @@
-body {
-  width: 300px;
-  height: 320px;
-  margin: 0;
-  padding: 15px;
-  font-family: 'Orbitron', sans-serif;
-  background-color: #0d0d0d; /* dark */
-  color: #00f6ff; /* cyan glow */
-  box-shadow: 0 0 20px #00f6ff inset;
-  border-radius: 8px;
+/* ============================================================
+   Emotion Detector - Popup UI
+   ============================================================ */
+
+* {
+    box-sizing: border-box;
 }
 
-h3 {
-  text-align: center;
-  color: #00f6ff;
-  text-shadow: 0 0 5px #00f6ff;
-  margin-bottom: 15px;
+
+body {
+    width: 380px;
+    min-height: 520px;
+
+    margin: 0;
+
+    background:
+        radial-gradient(
+            circle at 50% -20%,
+            #26323c 0%,
+            #11171d 42%,
+            #080b0f 100%
+        );
+
+    color: #f5f7fa;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
 }
+
+
+.app {
+    padding: 18px;
+}
+
+
+/* ============================================================
+   Header
+   ============================================================ */
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 18px;
+}
+
+
+.logo {
+    width: 52px;
+    height: 52px;
+
+    object-fit: contain;
+
+    flex-shrink: 0;
+}
+
+
+.header h1 {
+    margin: 0;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    letter-spacing: -0.3px;
+}
+
+
+.header p {
+    margin: 4px 0 0;
+
+    color: #8f9ba7;
+
+    font-size: 11px;
+}
+
+
+/* ============================================================
+   Input
+   ============================================================ */
+
+.input-section {
+    margin-bottom: 12px;
+}
+
+
+.input-section label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #cdd5dd;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
 
 textarea {
-  width: 100%;
-  height: 80px;
-  padding: 10px;
-  border: 2px solid #00f6ff;
-  border-radius: 5px;
-  background-color: #000;
-  color: #0ff;
-  font-size: 14px;
-  resize: none;
-  box-shadow: 0 0 8px #00f6ff inset;
-  outline: none;
+    width: 100%;
+    height: 100px;
+
+    padding: 12px;
+
+    resize: none;
+
+    border: 1px solid #303b45;
+    border-radius: 12px;
+
+    outline: none;
+
+    background: #0b1015;
+
+    color: #f4f7fa;
+
+    font-family: inherit;
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
 }
 
-button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 12px;
-  border: 2px solid #00f6ff;
-  background-color: transparent;
-  color: #00f6ff;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  box-shadow: 0 0 5px #00f6ff;
+
+textarea::placeholder {
+    color: #56616c;
 }
 
-button:hover {
-  background-color: #00f6ff;
-  color: #000;
+
+textarea:focus {
+    border-color: #74d55c;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(116, 213, 92, 0.10);
 }
 
-#result {
-  margin-top: 15px;
-  padding: 10px;
-  border-top: 1px solid #00f6ff;
-  font-size: 14px;
-  color: #0ff;
+
+.input-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 6px;
+}
+
+
+#charCount {
+    color: #65717d;
+
+    font-size: 10px;
+}
+
+
+#clearBtn {
+    border: 0;
+
+    padding: 0;
+
+    background: transparent;
+
+    color: #7f8a95;
+
+    font-size: 10px;
+
+    cursor: pointer;
+}
+
+
+#clearBtn:hover {
+    color: #ffffff;
+}
+
+
+/* ============================================================
+   Analyze Button
+   ============================================================ */
+
+.analyze-btn {
+    width: 100%;
+
+    min-height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    border: 0;
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #72d45c,
+            #54b94c
+        );
+
+    color: #081007;
+
+    font-family: inherit;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 18px
+        rgba(114, 212, 92, 0.18);
+
+    transition:
+        transform 0.15s,
+        box-shadow 0.15s,
+        opacity 0.15s;
+}
+
+
+.analyze-btn:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 7px 22px
+        rgba(114, 212, 92, 0.28);
+}
+
+
+.analyze-btn:active {
+    transform: translateY(0);
+}
+
+
+.analyze-btn:disabled {
+    opacity: 0.65;
+
+    cursor: wait;
+
+    transform: none;
+}
+
+
+/* ============================================================
+   Loader
+   ============================================================ */
+
+.loader {
+    width: 15px;
+    height: 15px;
+
+    border: 2px solid
+        rgba(8, 16, 7, 0.25);
+
+    border-top-color:
+        #081007;
+
+    border-radius: 50%;
+
+    animation:
+        spin 0.7s linear infinite;
+}
+
+
+@keyframes spin {
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+.hidden {
+    display: none !important;
+}
+
+
+/* ============================================================
+   Result
+   ============================================================ */
+
+.result {
+    margin-top: 14px;
+
+    padding: 13px;
+
+    border:
+        1px solid #27323c;
+
+    border-radius: 14px;
+
+    background:
+        rgba(15, 21, 27, 0.92);
+
+    animation:
+        resultIn 0.2s ease;
+}
+
+
+@keyframes resultIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ============================================================
+   Primary Result
+   ============================================================ */
+
+.primary-result {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding-bottom: 12px;
+
+    border-bottom:
+        1px solid #252e37;
+}
+
+
+.primary-emotion {
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #17201a;
+
+    font-size: 25px;
+}
+
+
+.primary-emotion.joy {
+    box-shadow:
+        inset 0 0 0 2px
+        rgba(114, 212, 92, 0.3);
+}
+
+
+.primary-emotion.anger {
+    background: #291316;
+}
+
+
+.primary-emotion.sadness {
+    background: #121d2c;
+}
+
+
+.primary-emotion.love {
+    background: #29151d;
+}
+
+
+.primary-emotion.surprise {
+    background: #15232d;
+}
+
+
+.primary-emotion.fear {
+    background: #21192d;
+}
+
+
+.primary-info {
+    flex: 1;
+}
+
+
+.result-label {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #687581;
+
+    font-size: 9px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.7px;
+}
+
+
+.primary-info strong {
+    display: block;
+
+    font-size: 16px;
+}
+
+
+.confidence {
+    text-align: right;
+}
+
+
+.confidence span {
+    display: block;
+
+    color: #72d45c;
+
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+.confidence small {
+    color: #687581;
+
+    font-size: 8px;
+}
+
+
+/* ============================================================
+   Emotion Distribution
+   ============================================================ */
+
+.scores {
+    margin-top: 12px;
+}
+
+
+.scores-title {
+    margin-bottom: 9px;
+
+    color: #8c98a4;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.7px;
+}
+
+
+.emotion-row {
+    display: grid;
+
+    grid-template-columns:
+        75px 1fr 36px;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-bottom: 7px;
+}
+
+
+.emotion-name {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    color: #b9c2ca;
+
+    font-size: 10px;
+}
+
+
+.emotion-progress {
+    height: 5px;
+
+    overflow: hidden;
+
+    border-radius: 10px;
+
+    background: #202830;
+}
+
+
+.emotion-progress-fill {
+    height: 100%;
+
+    min-width: 1px;
+
+    border-radius: inherit;
+
+    transition:
+        width 0.5s ease;
+}
+
+
+.emotion-progress-fill.joy {
+    background: #72d45c;
+}
+
+
+.emotion-progress-fill.love {
+    background: #ff5c8a;
+}
+
+
+.emotion-progress-fill.surprise {
+    background: #63c7ff;
+}
+
+
+.emotion-progress-fill.sadness {
+    background: #5b9cff;
+}
+
+
+.emotion-progress-fill.anger {
+    background: #ed3c55;
+}
+
+
+.emotion-progress-fill.fear {
+    background: #a879e8;
+}
+
+
+.emotion-progress-fill.disgust {
+    background: #8bc34a;
+}
+
+
+.emotion-progress-fill.neutral {
+    background: #aeb8c4;
+}
+
+
+.emotion-value {
+    color: #7d8994;
+
+    font-size: 9px;
+
+    text-align: right;
+}
+
+
+/* ============================================================
+   Analyzed Text
+   ============================================================ */
+
+.analyzed-text {
+    margin-top: 12px;
+
+    padding-top: 10px;
+
+    border-top:
+        1px solid #252e37;
+}
+
+
+.analyzed-text > span {
+    color: #687581;
+
+    font-size: 9px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.7px;
+}
+
+
+.analyzed-text p {
+    margin: 5px 0 0;
+
+    color: #9faab5;
+
+    font-size: 10px;
+
+    line-height: 1.45;
+
+    word-break: break-word;
+}
+
+
+/* ============================================================
+   Error
+   ============================================================ */
+
+.error-box {
+    display: flex;
+
+    gap: 10px;
+
+    align-items: flex-start;
+
+    padding: 10px;
+
+    border:
+        1px solid
+        rgba(237, 60, 85, 0.35);
+
+    border-radius: 10px;
+
+    background:
+        rgba(237, 60, 85, 0.06);
+}
+
+
+.error-icon {
+    font-size: 18px;
+}
+
+
+.error-box strong {
+    display: block;
+
+    color: #ff6b7f;
+
+    font-size: 12px;
+}
+
+
+.error-box p {
+    margin: 4px 0 0;
+
+    color: #a7afb7;
+
+    font-size: 10px;
+
+    line-height: 1.4;
+}
+
+
+/* ============================================================
+   Footer
+   ============================================================ */
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 14px;
+
+    color: #46515c;
+
+    font-size: 9px;
 }
